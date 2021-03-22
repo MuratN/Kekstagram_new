@@ -19,25 +19,28 @@ var getPicture = function(pic) {
 
 };
 
-var picturesContainer = document.querySelector('.pictures');
-var fragment = document.createDocumentFragment();
-for (var j = 0; j < caption.length; j++) {
-  var pictureElement = getPicture(caption[j]);
-  pictureElement.setAttribute('data-index', j);
-  pictureElement.addEventListener('mousedown', function(evt) {
-    var index = evt.currentTarget.getAttribute('data-index');
-    openPicture(+index);
-  });
-  pictureElement.addEventListener('keydown', function(evt) {
-    evt.preventDefault();
-    var index = evt.currentTarget.dataset.index;
-    if (evt.keyCode === ENTER_KEYCODE) {
+window.load(function(images) {
+  var picturesContainer = document.querySelector('.pictures');
+  var fragment = document.createDocumentFragment();
+  for (var j = 0; j < images.length; j++) {
+    var pictureElement = getPicture(images[j]);
+    pictureElement.setAttribute('data-index', j);
+    pictureElement.addEventListener('mousedown', function(evt) {
+      var index = evt.currentTarget.getAttribute('data-index');
       openPicture(+index);
-    }
-  });
-  fragment.appendChild(pictureElement);
-}
-picturesContainer.appendChild(fragment);
+    });
+    pictureElement.addEventListener('keydown', function(evt) {
+      evt.preventDefault();
+      var index = evt.currentTarget.dataset.index;
+      if (evt.keyCode === ENTER_KEYCODE) {
+        openPicture(+index);
+      }
+    });
+    fragment.appendChild(pictureElement);
+  }
+  picturesContainer.appendChild(fragment);
+  console.log(images);
+});
 
 var onPictureEscPress = function(evt) {
   if (evt.keyCode === ESC_KEYCODE) {

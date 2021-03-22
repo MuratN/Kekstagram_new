@@ -20,6 +20,7 @@ var effectLevelLine = document.querySelector('.upload-effect-level-line');
 var hashtagsForm = document.querySelector('.upload-form-hashtags');
 var commentsForm = document.querySelector('.upload-form-description');
 var uploadImage = document.querySelector('.upload-image');
+var uploadForm = document.querySelector('.upload-form');
 
 uploadImage.addEventListener('change', function() {
   uploadOverlay.classList.remove('hidden');
@@ -177,17 +178,24 @@ effectLevelPin.onmousedown = function(evt) {
 
 };
 
-  function getEffectLevel() {
-    level = newLeft/455;
-    if (effect === 'grayscale') {
+function getEffectLevel() {
+  level = newLeft/455;
+  if (effect === 'grayscale') {
+  effectImage.style.filter = effect + '('+ level +')';
+  } else if (effect === 'sepia') {
     effectImage.style.filter = effect + '('+ level +')';
-    } else if (effect === 'sepia') {
-      effectImage.style.filter = effect + '('+ level +')';
-    } else if (effect === 'invert') {
-      effectImage.style.filter = effect + '('+ (level * 100) + '%' +')';
-    } else if (effect === 'blur') {
-      effectImage.style.filter = effect + '('+ (level + 0.1) * 3 + 'px' + ')';
-    } else if (effect === 'brightness') {
-      effectImage.style.filter = effect + '('+ level * 3 +')';
-    }
+  } else if (effect === 'invert') {
+    effectImage.style.filter = effect + '('+ (level * 100) + '%' +')';
+  } else if (effect === 'blur') {
+    effectImage.style.filter = effect + '('+ (level + 0.1) * 3 + 'px' + ')';
+  } else if (effect === 'brightness') {
+    effectImage.style.filter = effect + '('+ level * 3 +')';
   }
+}
+
+uploadForm.addEventListener('submit', function (evt) {
+  window.upload(new FormData(uploadForm), function (response) {
+    uploadOverlay.classList.add('hidden');
+  });
+  evt.preventDefault();
+});
