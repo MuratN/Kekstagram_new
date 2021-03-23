@@ -39,7 +39,6 @@ window.load(function(images) {
     fragment.appendChild(pictureElement);
   }
   picturesContainer.appendChild(fragment);
-  console.log(images);
 });
 
 var onPictureEscPress = function(evt) {
