@@ -13,6 +13,7 @@ var filterPopular = document.getElementById('filter-popular');
 var filterDiscussed = document.getElementById('filter-discussed');
 var filterRandom = document.getElementById('filter-random');
 var images = [];
+var newImages = [];
 
 filters.classList.remove('hidden');
 
@@ -52,6 +53,8 @@ var renderImages = function() {
 
 window.load(function(images) {
   window.images = images;
+  newImages = images.slice();
+
   filters.addEventListener('click', function() {
     if (filterRecommend.checked) {
       sortRecommend();
@@ -71,13 +74,14 @@ window.load(function(images) {
 });
 
 var sortRecommend = function() {
-  images.slice();
+  images = newImages.slice();
 };
 
 var sortPopular = function() {
   images.sort(function(left, right) {
     return right.likes - left.likes;
   });
+
 };
 
 var sortDiscussed = function() {
